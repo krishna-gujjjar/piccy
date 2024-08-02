@@ -1,0 +1,29 @@
+{
+  "name": "piccy",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "turbo": "^2.0.11"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "bun@1.1.21",
+  "workspaces": [
+    "examples/*",
+    "packages/*",
+    "tools/*"
+  ],
+  "trustedDependencies": [
+    "@biomejs/biome",
+    "@swc/core",
+    "core-js-pure",
+    "esbuild"
+  ]
+}

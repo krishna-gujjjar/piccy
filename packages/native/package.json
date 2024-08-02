@@ -1,0 +1,42 @@
+{
+  "name": "@piccy/native",
+  "version": "0.0.0",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.mjs",
+  "types": "./dist/cjs/index.d.ts",
+  "exports": {
+    "import": {
+      "types": "./dist/es/index.d.mts",
+      "default": "./dist/es/index.mjs"
+    },
+    "require": {
+      "types": "./dist/cjs/index.d.ts",
+      "default": "./dist/cjs/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "dev": "bunchee -w",
+    "lint": "biome check ."
+  },
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*",
+    "react-native-reanimated": "*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@piccy/biome-config": "*",
+    "@piccy/tsconfig": "*",
+    "@types/react": "~18.2.45",
+    "@types/react-dom": "^18.2.19",
+    "bunchee": "^5.3.1",
+    "tsup": "^8.0.1",
+    "typescript": "~5.3.3"
+  }
+}
