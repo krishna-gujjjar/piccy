@@ -6,7 +6,7 @@ import Container from './components/Container';
 import Image from './components/Image';
 import Shape from './components/Shape';
 import Text from './components/Text';
-import { BACKGROUND_COLORS, SHAPE_COLORS } from './configs/colors';
+import { BACKGROUND_COLORS, SHAPE_COLORS, TEXT_COLORS } from './configs/colors';
 import { COLORS_COUNT, SHAPES_COUNT } from './configs/properties';
 import randomNumber from './utils/random';
 
@@ -69,7 +69,7 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
           <Text
             size={props.size ?? 'md'}
             value={props.title ?? props.value}
-            color={`#${SHAPE_COLORS[colorKey] ?? '000'}`}
+            color={`#${TEXT_COLORS[colorKey] ?? '000'}`}
           />
         </ConditionalWrapper>
       </ConditionalWrapper>
