@@ -22,12 +22,18 @@ async function convertSvgToComponent(assetsDir: string, shapesDir: string) {
       const componentName = `Shape${fileName.split('-')?.[1]}`; // Adjust naming logic
       const destinationPath = join(shapesDir, `${fileName}.tsx`);
 
-      const optimizedSvg = optimize(svgContent, {
+      // Remove gradients using a more specific pattern
+      const gradientLessSvg = svgContent.replace(
+        /<linearGradient[^>]*>(?:(?!<\/linearGradient>).)*?<\/linearGradient>/g,
+        ''
+      );
+
+      // Update fills with gradients
+      const updatedSvg = gradientLessSvg.replace(/fill="url\(#([^"]+)\)"/g, 'fill="currentColor"');
+
+      const optimizedSvg = optimize(updatedSvg, {
         plugins: [
-          {
-            name: 'preset-default',
-            params: { overrides: { removeViewBox: false } },
-          },
+          { name: 'preset-default', params: { overrides: { removeViewBox: false } } },
           'removeXMLNS',
         ],
       });
