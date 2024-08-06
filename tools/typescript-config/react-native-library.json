@@ -5,12 +5,10 @@
   "compilerOptions": {
     "allowJs": true,
     "jsx": "react-native",
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
+    "lib": ["DOM", "ESNext"],
     "noEmit": true,
     "resolveJsonModule": true,
+    "module": "node16",
     "target": "ESNext"
   }
 }
