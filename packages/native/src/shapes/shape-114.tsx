@@ -1,0 +1,7 @@
+import Svg, { G, Path, Defs, ClipPath } from "react-native-svg";
+import type { SvgProps } from "react-native-svg";
+import { type Ref, forwardRef, memo } from "react";
+const Shape114 = (props: SvgProps, ref: Ref<Svg>): JSX.Element => <Svg width={200} height={200} fill="none" viewBox="0 0 200 200" ref={ref} {...props}><G clipPath="url(#a)"><Path fill="currentColor" fillRule="evenodd" d="M100 0C72.386 0 50 22.386 50 50 22.386 50 0 72.386 0 100s22.386 50 50 50c0 27.614 22.386 50 50 50s50-22.386 50-50c27.614 0 50-22.386 50-50s-22.386-50-50-50c0-27.614-22.386-50-50-50m40.306 59.694c0-22.26-18.046-40.306-40.306-40.306S59.694 37.433 59.694 59.694c-22.26 0-40.306 18.046-40.306 40.306s18.045 40.306 40.306 40.306c0 22.261 18.046 40.306 40.306 40.306s40.306-18.045 40.306-40.306c22.261 0 40.306-18.046 40.306-40.306s-18.045-40.306-40.306-40.306m-70.918 9.694c0-16.907 13.705-30.613 30.612-30.613s30.612 13.706 30.612 30.613c16.907 0 30.612 13.705 30.612 30.612s-13.705 30.612-30.612 30.612c0 16.907-13.705 30.612-30.612 30.612s-30.612-13.705-30.612-30.612c-16.907 0-30.613-13.705-30.613-30.612s13.706-30.612 30.613-30.612" clipRule="evenodd" /></G><Defs><ClipPath id="a"><Path d="M0 0h200v200H0z" /></ClipPath></Defs></Svg>;
+const ForwardRef = forwardRef(Shape114);
+const Memo = memo(ForwardRef);
+export default Memo;

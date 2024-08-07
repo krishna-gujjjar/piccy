@@ -1,4 +1,4 @@
-export const SHAPES_COUNT = 10;
+export const SHAPES_COUNT = 123;
 export const COLORS_COUNT = 19;
 
 export const SIZE = {

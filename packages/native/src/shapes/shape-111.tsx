@@ -1,0 +1,7 @@
+import Svg, { G, Path, Defs, ClipPath } from "react-native-svg";
+import type { SvgProps } from "react-native-svg";
+import { type Ref, forwardRef, memo } from "react";
+const Shape111 = (props: SvgProps, ref: Ref<Svg>): JSX.Element => <Svg width={200} height={200} fill="none" viewBox="0 0 200 200" ref={ref} {...props}><G clipPath="url(#a)"><Path fill="currentColor" fillRule="evenodd" d="M43.256 174.653V200h13.488v-25.347c0-9.891 8.019-17.909 17.91-17.909h50.693c9.89 0 17.909 8.018 17.909 17.909V200h13.488v-25.347c0-9.891 8.019-17.909 17.91-17.909H200v-13.488h-25.346c-9.891 0-17.91-8.018-17.91-17.909V74.653c0-9.89 8.019-17.909 17.91-17.909H200V43.256h-25.346c-9.891 0-17.91-8.019-17.91-17.91V0h-13.488v25.347c0 9.89-8.019 17.909-17.909 17.909H74.653c-9.89 0-17.909-8.018-17.909-17.91V0H43.256v25.347c0 9.89-8.019 17.909-17.91 17.909H0v13.488h25.346c9.891 0 17.91 8.018 17.91 17.91v50.693c0 9.891-8.019 17.909-17.91 17.909H0v13.488h25.346c9.891 0 17.91 8.018 17.91 17.909m100-74.653V74.653c0-9.89-8.019-17.909-17.909-17.909H74.653c-9.89 0-17.909 8.018-17.909 17.91v50.693c0 9.891 8.019 17.909 17.91 17.909h50.693c9.89 0 17.909-8.018 17.909-17.909z" clipRule="evenodd" /></G><Defs><ClipPath id="a"><Path d="M0 200V0h200v200z" /></ClipPath></Defs></Svg>;
+const ForwardRef = forwardRef(Shape111);
+const Memo = memo(ForwardRef);
+export default Memo;

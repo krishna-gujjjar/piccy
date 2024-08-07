@@ -1,0 +1,7 @@
+import Svg, { G, Path, Defs, ClipPath } from "react-native-svg";
+import type { SvgProps } from "react-native-svg";
+import { type Ref, forwardRef, memo } from "react";
+const Shape92 = (props: SvgProps, ref: Ref<Svg>): JSX.Element => <Svg width={200} height={200} fill="none" viewBox="0 0 200 200" ref={ref} {...props}><G clipPath="url(#a)"><Path fill="currentColor" fillRule="evenodd" d="M132.136 164.537C122.432 180.711 110.697 188 100 188s-22.432-7.289-32.136-23.463C58.302 148.602 52 125.813 52 100s6.303-48.602 15.864-64.537C77.568 19.29 89.303 12 100 12s22.432 7.29 32.136 23.463C141.697 51.398 148 74.187 148 100s-6.303 48.602-15.864 64.537M200 100C200 44.772 155.228 0 100 0S0 44.772 0 100s44.772 100 100 100 100-44.772 100-100m-188 0c0 35.93 21.533 66.83 52.397 80.5C49.598 162.289 40 133.013 40 100s9.598-62.29 24.397-80.5C33.533 33.17 12 64.07 12 100m176 0c0 35.93-21.533 66.83-52.397 80.5C150.402 162.289 160 133.013 160 100s-9.598-62.29-24.397-80.5C166.467 33.17 188 64.07 188 100m-88 11c6.075 0 11-4.925 11-11s-4.925-11-11-11-11 4.925-11 11 4.925 11 11 11" clipRule="evenodd" /></G><Defs><ClipPath id="a"><Path d="M0 0h200v200H0z" /></ClipPath></Defs></Svg>;
+const ForwardRef = forwardRef(Shape92);
+const Memo = memo(ForwardRef);
+export default Memo;
