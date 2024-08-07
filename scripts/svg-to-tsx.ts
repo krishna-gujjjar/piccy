@@ -61,7 +61,12 @@ async function convertSvgToComponent(assetsDir: string, shapesDir: string) {
         }
       );
 
-      await Bun.write(destinationPath, tsxCode, { createPath: false });
+      const updatedTsxCode = tsxCode
+        .replace('Ref<SVGSVGElement>', 'Ref<Svg>')
+        .replace('Ref,', 'type Ref,')
+        .replace(' fill="#fff"', '');
+
+      await Bun.write(destinationPath, updatedTsxCode, { createPath: false });
       console.log(` ~ '${file}' to '${destinationPath}' converted.`);
     }
   }
