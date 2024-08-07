@@ -35,6 +35,7 @@ async function convertSvgToComponent(assetsDir: string, shapesDir: string) {
         plugins: [
           { name: 'preset-default', params: { overrides: { removeViewBox: false } } },
           'removeXMLNS',
+          'convertStyleToAttrs',
         ],
       });
 
@@ -48,10 +49,7 @@ async function convertSvgToComponent(assetsDir: string, shapesDir: string) {
           native: true,
           typescript: true,
           exportType: 'default',
-          jsxRuntimeImport: {
-            source: 'react',
-            defaultSpecifier: 'React',
-          },
+          jsxRuntime: 'automatic',
           plugins: ['@svgr/plugin-jsx'],
         },
         {
