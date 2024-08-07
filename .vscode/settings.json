@@ -11,13 +11,14 @@
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "conventionalCommits.scopes": [
-    "components",
-    "deps",
-    "utils",
-    "shapes",
-    "config",
     "assets",
+    "components",
+    "config",
+    "deps",
+    "example",
     "scripts",
-    "tools"
+    "shapes",
+    "tools",
+    "utils"
   ]
 }

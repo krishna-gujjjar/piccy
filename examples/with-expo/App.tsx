@@ -1,22 +1,33 @@
-import { Wrapper } from '@piccy/native';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Avatar } from '@piccy/native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
-const App = (): JSX.Element => (
-  <View style={styles.container}>
-    <Text>Open up App.tsx to start working on your app!</Text>
-    <Wrapper />
-    <StatusBar style="auto" />
+const ITEM_STATE = 12;
+
+const data = Array.from(Array(200).keys());
+
+export default (): JSX.Element => (
+  <View style={styles.wrapper}>
+    <ScrollView contentContainerStyle={styles.contentContainer}>
+      {data.map((_) => (
+        <Avatar key={_} size="lg" value={_.toString()} />
+      ))}
+    </ScrollView>
   </View>
 );
 
-export default App;
-
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: ITEM_STATE * 3,
+    paddingHorizontal: ITEM_STATE / 2,
+  },
+  contentContainer: {
+    gap: ITEM_STATE,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    paddingBottom: ITEM_STATE,
+    paddingVertical: ITEM_STATE,
+    paddingHorizontal: ITEM_STATE / 2,
   },
 });

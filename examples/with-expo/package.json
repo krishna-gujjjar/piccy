@@ -11,7 +11,7 @@
     "web": "bun run start --web"
   },
   "dependencies": {
-    "@piccy/native": "*",
+    "@piccy/native": "workspace:*",
     "expo": "~51.0.24",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
