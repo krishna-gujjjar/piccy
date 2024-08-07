@@ -1,12 +1,11 @@
 import { Suspense, lazy, useMemo } from 'react';
+import type { ForwardRefExoticComponent, MemoExoticComponent, RefAttributes } from 'react';
 import type { ColorValue } from 'react-native';
 import type { Svg, SvgProps } from 'react-native-svg';
 
 import { SIZE } from '@/configs/properties';
 
-type ShapeType = React.MemoExoticComponent<
-  React.ForwardRefExoticComponent<SvgProps & React.RefAttributes<Svg>>
->;
+type ShapeType = MemoExoticComponent<ForwardRefExoticComponent<SvgProps & RefAttributes<Svg>>>;
 
 type ShapeProps = {
   value: number;
