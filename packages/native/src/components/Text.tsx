@@ -1,6 +1,7 @@
-import { SIZE } from '@/configs/properties';
 import { useMemo } from 'react';
 import { Text as TextComponent } from 'react-native';
+
+import { SIZE } from '@/configs/properties';
 
 interface TextProps {
   value: string;
