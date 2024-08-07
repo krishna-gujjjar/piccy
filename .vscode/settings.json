@@ -12,6 +12,7 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "conventionalCommits.scopes": [
     "components",
+    "deps",
     "utils",
     "shapes",
     "config",

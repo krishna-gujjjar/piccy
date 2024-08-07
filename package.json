@@ -3,27 +3,23 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
+    "convert": "bun run scripts/svg-to-tsx.ts",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
+    "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
+    "@types/bun": "^1.1.6",
+    "svgo": "^3.3.2",
     "turbo": "^2.0.11"
   },
   "engines": {
     "node": ">=18"
   },
   "packageManager": "bun@1.1.21",
-  "workspaces": [
-    "examples/*",
-    "packages/*",
-    "tools/*"
-  ],
-  "trustedDependencies": [
-    "@biomejs/biome",
-    "@swc/core",
-    "core-js-pure",
-    "esbuild"
-  ]
+  "workspaces": ["examples/*", "packages/*", "tools/*"],
+  "trustedDependencies": ["@biomejs/biome", "@swc/core", "core-js-pure", "esbuild"]
 }
