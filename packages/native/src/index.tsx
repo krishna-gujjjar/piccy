@@ -41,11 +41,11 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
       rounded={props.rounded ?? 'full'}
       withBorder={props.withBorder ?? true}
       withShadow={props.withShadow ?? true}
-      color={`#${SHAPE_COLORS[colorKey] ?? '000'}`}
-      bg={`#${BACKGROUND_COLORS[colorKey] ?? 'fff'}`}
+      color={SHAPE_COLORS[colorKey] ?? '#000'}
+      bg={BACKGROUND_COLORS[colorKey] ?? '#fff'}
       borderColor={
         props.borderColor ?? props.withColoredBorder ?? false
-          ? `#${SHAPE_COLORS[colorKey] ?? '000'}`
+          ? SHAPE_COLORS[colorKey] ?? '#000'
           : '#fff'
       }
     >
@@ -62,14 +62,14 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
           <Shape
             value={shapeKey}
             size={props.size ?? 'md'}
-            color={props.color ?? `#${SHAPE_COLORS[colorKey] ?? '000'}`}
+            color={props.color ?? SHAPE_COLORS[colorKey] ?? '#000'}
           />
         </ConditionalWrapper>
         <ConditionalWrapper shouldRender={!(props.withShape ?? true)}>
           <Text
             size={props.size ?? 'md'}
             value={props.title ?? props.value}
-            color={`#${TEXT_COLORS[colorKey] ?? '000'}`}
+            color={TEXT_COLORS[colorKey] ?? '#000'}
           />
         </ConditionalWrapper>
       </ConditionalWrapper>
