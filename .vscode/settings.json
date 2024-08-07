@@ -1,8 +1,22 @@
 {
   "cSpell.words": [
+    "Alea",
+    "Baagoe",
     "biomejs",
+    "Elems",
+    "Mersenne",
     "piccy",
+    "svgr",
     "tsup"
   ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "conventionalCommits.scopes": [
+    "components",
+    "utils",
+    "shapes",
+    "config",
+    "assets",
+    "scripts",
+    "tools"
+  ]
 }
