@@ -51,6 +51,12 @@ async function convertSvgToComponent(assetsDir: string, shapesDir: string) {
           exportType: 'default',
           jsxRuntime: 'automatic',
           plugins: ['@svgr/plugin-jsx'],
+          template: (variables, { tpl }) => tpl`
+            ${variables.imports};
+            ${variables.interfaces};
+            const ${variables.componentName} = (${variables.props}):JSX.Element => (${variables.jsx});
+            ${variables.exports};
+          `,
         },
         {
           componentName,
@@ -72,7 +78,7 @@ async function convertSvgToComponent(assetsDir: string, shapesDir: string) {
 
 try {
   const assetsDir = join(__dirname, '../', 'assets');
-  const shapesDir = join(__dirname, '../', 'packages', 'native', 'src', 'shapes-experiment');
+  const shapesDir = join(__dirname, '../', 'packages', 'native', 'src', 'shapes');
   await convertSvgToComponent(assetsDir, shapesDir);
 } catch (error) {
   console.error(' ~ error:', error);
