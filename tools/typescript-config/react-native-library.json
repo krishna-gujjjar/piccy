@@ -4,7 +4,7 @@
   "extends": "./base.json",
   "compilerOptions": {
     "allowJs": true,
-    "jsx": "react-native",
+    "jsx": "react-jsx",
     "lib": ["DOM", "ESNext"],
     "noEmit": true,
     "resolveJsonModule": true,
