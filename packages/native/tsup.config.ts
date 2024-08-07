@@ -7,12 +7,12 @@ export default defineConfig((options: Options) => ({
   entry: {
     index: 'src/index.tsx',
   },
-  splitting: true,
-  // minify:true,
+  dts: true,
   clean: true,
+  splitting: true,
   treeshake: true,
+  minify: !options.watch,
   format: ['cjs', 'esm'],
   external: ['react', 'react-native', 'react-native-svg'],
-  dts: true,
   ...options,
 }));
