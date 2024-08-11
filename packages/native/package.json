@@ -1,28 +1,49 @@
 {
   "name": "@piccy/native",
   "version": "0.0.0",
-  "files": ["dist"],
+  "description": "Save time and effort with our ready-to-use SVG shapes. Create beautiful, professional designs without the hassle",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Krishna Gujjjar <krishnagujjjar@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "directory": "packages/native",
+    "url": "https://github.com/krishna-gujjjar/piccy.git"
+  },
+  "bugs": { "url": "https://github.com/krishna-gujjjar/piccy/issues" },
+  "keywords": [
+    "icons",
+    "design",
+    "ui",
+    "ux",
+    "customizable",
+    "pre-built",
+    "avatar",
+    "react-native",
+    "expo",
+    "svg",
+    "shapes",
+    "profile",
+    "image",
+    "placeholder",
+    "dynamic",
+    "colorful",
+    "library",
+    "component"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "default": "./dist/index.mjs",
-        "types": "./dist/index.d.mts"
-      },
-      "require": {
-        "default": "./dist/index.js",
-        "types": "./dist/index.d.ts"
-      }
-    },
-    "./package.json": "./package.json"
-  },
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
+    "check-types": "tsc --noEmit",
     "clean": "rm -rf dist",
     "dev": "tsup --watch",
-    "lint": "biome check ."
+    "lint": "biome check .",
+    "release": "release-it"
   },
   "peerDependencies": {
     "expo": "*",
@@ -37,6 +58,7 @@
     "@piccy/tsconfig": "workspace:*",
     "@types/react": "~18.2.45",
     "@types/react-dom": "^18.2.19",
+    "release-it": "^17.6.0",
     "tsup": "^8.2.4",
     "typescript": "~5.3.3"
   }

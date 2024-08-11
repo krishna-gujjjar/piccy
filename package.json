@@ -3,10 +3,11 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
+    "check-types": "turbo check-types",
     "convert": "bun run scripts/svg-to-tsx.ts",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "release": "turbo release"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
@@ -19,7 +20,7 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "bun@1.1.21",
+  "packageManager": "bun@1.1.22",
   "workspaces": ["examples/*", "packages/*", "tools/*"],
   "trustedDependencies": ["@biomejs/biome", "@swc/core", "core-js-pure", "esbuild"]
 }
