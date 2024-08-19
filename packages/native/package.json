@@ -58,7 +58,7 @@
     "@piccy/biome-config": "workspace:*",
     "@piccy/tsconfig": "workspace:*",
     "@types/react": "~18.2.45",
-    "@types/react-dom": "^18.2.19",
+    "@types/react-dom": "~18.2.25",
     "tsup": "^8.2.4",
     "typescript": "~5.3.3"
   }

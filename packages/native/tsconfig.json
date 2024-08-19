@@ -1,5 +1,5 @@
 {
-  "extends": "@piccy/tsconfig/react-native-library",
+  "extends": "@piccy/tsconfig/library",
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
