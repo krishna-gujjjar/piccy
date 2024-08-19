@@ -2,7 +2,6 @@
 // Johannes Baagøe <baagoe@baagoe.com>, 2010
 
 type Mash = (data: string) => number;
-
 class AleaGen {
   private c: number;
   private s0: number;
@@ -10,35 +9,28 @@ class AleaGen {
   private s2: number;
   private mash: Mash;
 
-  constructor(seed: string | number | null) {
-    let seedValue = seed;
-    if (seedValue == null) seedValue = +new Date();
-
-    const n = 0xefc8249d;
-
-    // Apply the seeding algorithm from Baagoe.
-    this.c = 1;
+  constructor(seed: string | number | null = null) {
     this.mash = this.createMash();
+    this.c = 1;
     this.s0 = this.mash(' ');
     this.s1 = this.mash(' ');
     this.s2 = this.mash(' ');
+
+    let seedValue = seed;
+    if (seedValue === null) {
+      seedValue = `${Date.now()}-${Math.random()}`;
+    }
+
     this.s0 -= this.mash(seedValue.toString());
-    if (this.s0 < 0) {
-      this.s0 += 1;
-    }
+    if (this.s0 < 0) this.s0 += 1;
     this.s1 -= this.mash(seedValue.toString());
-    if (this.s1 < 0) {
-      this.s1 += 1;
-    }
+    if (this.s1 < 0) this.s1 += 1;
     this.s2 -= this.mash(seedValue.toString());
-    if (this.s2 < 0) {
-      this.s2 += 1;
-    }
+    if (this.s2 < 0) this.s2 += 1;
   }
 
   private createMash(): Mash {
     let n = 0xefc8249d;
-
     return (data: string): number => {
       for (let i = 0; i < data.length; i++) {
         n += data.charCodeAt(i);
