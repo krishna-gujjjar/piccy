@@ -45,164 +45,166 @@
 // check-spell:enable
 
 interface MersenneInitialTypes {
-  N: number;
-  M: number;
-  MATRIX_A: number;
-  UPPER_MASK: number;
-  LOWER_MASK: number;
-  mt: Array<number>;
-  mti: number;
-  init_genrand: (seed: number) => void;
-
-  random: () => number;
+  stateVectorLength: number;
+  stateVectorM: number;
+  matrixA: number;
+  upperMask: number;
+  lowerMask: number;
+  stateVector: Uint32Array;
+  stateIndex: number;
+  initGenRand: (seed: number) => void;
+  initByArray: (initKey: number[], keyLength: number) => void;
+  genRandInt32: () => number;
+  genRandInt31: () => number;
+  genRandReal1: () => number;
+  genRandReal2: () => number;
+  genRandReal3: () => number;
+  genRandRes53: () => number;
 }
 
-const MersenneTwister = function (this: MersenneInitialTypes, seed: number) {
-  if (seed === undefined) {
-    // kept random number same size as time used previously to ensure no unexpected results downstream
-    seed = Math.floor(Math.random() * Math.pow(10, 13));
+class MersenneTwister implements MersenneInitialTypes {
+  readonly stateVectorLength = 624;
+  readonly stateVectorM = 397;
+  readonly matrixA = 0x9908b0df;
+  readonly upperMask = 0x80000000; // most significant w-r bits
+  readonly lowerMask = 0x7fffffff; // least significant r bits
+  stateVector: Uint32Array; // the array for the state vector
+  stateIndex: number = this.stateVectorLength + 1; // stateIndex==stateVectorLength+1 means stateVector[stateVectorLength] is not initialized
+
+  constructor(seed: number = Math.floor(Math.random() * 10 ** 13)) {
+    this.stateVector = new Uint32Array(this.stateVectorLength); // Initialize stateVector in the constructor
+    this.initGenRand(seed);
   }
-  /* Period parameters */
-  this.N = 624;
-  this.M = 397;
-  this.MATRIX_A = 0x9908b0df; /* constant vector a */
-  this.UPPER_MASK = 0x80000000; /* most significant w-r bits */
-  this.LOWER_MASK = 0x7fffffff; /* least significant r bits */
 
-  this.mt = new Array(this.N); /* the array for the state vector */
-  this.mti = this.N + 1; /* mti==N + 1 means mt[N] is not initialized */
-
-  this.init_genrand(seed);
-} as any as { new (seed: number): MersenneInitialTypes };
-
-/* initializes mt[N] with a seed */
-MersenneTwister.prototype.init_genrand = function (s: number) {
-  this.mt[0] = s >>> 0;
-  for (this.mti = 1; this.mti < this.N; this.mti++) {
-    s = this.mt[this.mti - 1] ^ (this.mt[this.mti - 1] >>> 30);
-    this.mt[this.mti] =
-      ((((s & 0xffff0000) >>> 16) * 1812433253) << 16) + (s & 0x0000ffff) * 1812433253 + this.mti;
-    /* See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. */
-    /* In the previous versions, MSBs of the seed affect   */
-    /* only MSBs of the array mt[].                        */
-    /* 2002/01/09 modified by Makoto Matsumoto             */
-    this.mt[this.mti] >>>= 0;
-    /* for >32 bit machines */
-  }
-};
-
-/* initialize by an array with array-length */
-/* init_key is the array for initializing keys */
-/* key_length is its length */
-/* slight change for C++, 2004/2/26 */
-MersenneTwister.prototype.init_by_array = function (init_key: any, key_length: any) {
-  var i = 1,
-    j = 0,
-    k,
-    s;
-  this.init_genrand(19650218);
-  k = this.N > key_length ? this.N : key_length;
-  for (; k; k--) {
-    s = this.mt[i - 1] ^ (this.mt[i - 1] >>> 30);
-    this.mt[i] =
-      (this.mt[i] ^ (((((s & 0xffff0000) >>> 16) * 1664525) << 16) + (s & 0x0000ffff) * 1664525)) +
-      init_key[j] +
-      j; /* non linear */
-    this.mt[i] >>>= 0; /* for WORDSIZE > 32 machines */
-    i++;
-    j++;
-    if (i >= this.N) {
-      this.mt[0] = this.mt[this.N - 1];
-      i = 1;
+  initGenRand(seed: number): void {
+    if (!this.stateVector) {
+      throw new Error('stateVector is not initialized');
     }
-    if (j >= key_length) {
-      j = 0;
-    }
-  }
-  for (k = this.N - 1; k; k--) {
-    s = this.mt[i - 1] ^ (this.mt[i - 1] >>> 30);
-    this.mt[i] =
-      (this.mt[i] ^
-        (((((s & 0xffff0000) >>> 16) * 1566083941) << 16) + (s & 0x0000ffff) * 1566083941)) -
-      i; /* non linear */
-    this.mt[i] >>>= 0; /* for WORDSIZE > 32 machines */
-    i++;
-    if (i >= this.N) {
-      this.mt[0] = this.mt[this.N - 1];
-      i = 1;
+    this.stateVector[0] = seed >>> 0;
+    for (this.stateIndex = 1; this.stateIndex < this.stateVectorLength; this.stateIndex++) {
+      const stateVector = this.stateVector[this.stateIndex - 1] ?? 0;
+      const s = stateVector ^ (stateVector >>> 30);
+      this.stateVector[this.stateIndex] =
+        ((((s & 0xffff0000) >>> 16) * 1812433253) << 16) +
+        (s & 0x0000ffff) * 1812433253 +
+        this.stateIndex;
+      this.stateVector[this.stateIndex] >>>= 0;
     }
   }
 
-  this.mt[0] = 0x80000000; /* MSB is 1; assuring non-zero initial array */
-};
-
-/* generates a random number on [0,0xffffffff]-interval */
-MersenneTwister.prototype.genrand_int32 = function () {
-  var y;
-  var mag01 = new Array(0x0, this.MATRIX_A);
-  /* mag01[x] = x * MATRIX_A  for x=0,1 */
-
-  if (this.mti >= this.N) {
-    /* generate N words at one time */
-    var kk;
-
-    if (this.mti === this.N + 1) {
-      /* if init_genrand() has not been called, */
-      this.init_genrand(5489); /* a default initial seed is used */
+  initByArray(initKey: number[], keyLength: number): void {
+    if (!this.stateVector) {
+      throw new Error('stateVector is not initialized');
     }
-    for (kk = 0; kk < this.N - this.M; kk++) {
-      y = (this.mt[kk] & this.UPPER_MASK) | (this.mt[kk + 1] & this.LOWER_MASK);
-      this.mt[kk] = this.mt[kk + this.M] ^ (y >>> 1) ^ mag01[y & 0x1];
+    let i = 1;
+    let j = 0;
+    let k = this.stateVectorLength > keyLength ? this.stateVectorLength : keyLength;
+    this.initGenRand(19650218);
+    for (; k; k--) {
+      const stateVector = this.stateVector[i - 1] ?? 0;
+      const s = stateVector ^ (stateVector >>> 30);
+      this.stateVector[i] =
+        (this.stateVector[i] ??
+          0 ^ (((((s & 0xffff0000) >>> 16) * 1664525) << 16) + (s & 0x0000ffff) * 1664525)) +
+        (initKey[j] ?? 0) +
+        j;
+      this.stateVector[i] >>>= 0;
+      i++;
+      j++;
+      if (i >= this.stateVectorLength) {
+        this.stateVector[0] = this.stateVector[this.stateVectorLength - 1] ?? 0;
+        i = 1;
+      }
+      if (j >= keyLength) j = 0;
     }
-    for (; kk < this.N - 1; kk++) {
-      y = (this.mt[kk] & this.UPPER_MASK) | (this.mt[kk + 1] & this.LOWER_MASK);
-      this.mt[kk] = this.mt[kk + (this.M - this.N)] ^ (y >>> 1) ^ mag01[y & 0x1];
+    for (k = this.stateVectorLength - 1; k; k--) {
+      const stateVector = this.stateVector[i - 1] ?? 0;
+      const s = stateVector ^ (stateVector >>> 30);
+      this.stateVector[i] =
+        (this.stateVector[i] ??
+          0 ^ (((((s & 0xffff0000) >>> 16) * 1566083941) << 16) + (s & 0x0000ffff) * 1566083941)) -
+        i;
+      this.stateVector[i] >>>= 0;
+      i++;
+      if (i >= this.stateVectorLength) {
+        this.stateVector[0] = this.stateVector[this.stateVectorLength - 1] ?? 0;
+        i = 1;
+      }
     }
-    y = (this.mt[this.N - 1] & this.UPPER_MASK) | (this.mt[0] & this.LOWER_MASK);
-    this.mt[this.N - 1] = this.mt[this.M - 1] ^ (y >>> 1) ^ mag01[y & 0x1];
-
-    this.mti = 0;
+    this.stateVector[0] = 0x80000000; // MSB is 1; assuring non-zero initial array
   }
 
-  y = this.mt[this.mti++];
+  genRandInt32(): number {
+    if (!this.stateVector) {
+      throw new Error('stateVector is not initialized');
+    }
+    let y: number;
+    const mag01 = new Uint32Array([0x0, this.matrixA]);
 
-  /* Tempering */
-  y ^= y >>> 11;
-  y ^= (y << 7) & 0x9d2c5680;
-  y ^= (y << 15) & 0xefc60000;
-  y ^= y >>> 18;
+    if (this.stateIndex >= this.stateVectorLength) {
+      // generate stateVectorLength words at one time
+      let kk: number;
 
-  return y >>> 0;
-};
+      if (this.stateIndex === this.stateVectorLength + 1)
+        // if initGenRand() has not been called
+        this.initGenRand(5489); // a default initial seed is used
 
-/* generates a random number on [0,0x7fffffff]-interval */
-MersenneTwister.prototype.genrand_int31 = function () {
-  return this.genrand_int32() >>> 1;
-};
+      for (kk = 0; kk < this.stateVectorLength - this.stateVectorM; kk++) {
+        y =
+          (this.stateVector[kk] ?? 0 & this.upperMask) |
+          (this.stateVector[kk + 1] ?? 0 & this.lowerMask);
+        this.stateVector[kk] =
+          this.stateVector[kk + this.stateVectorM] ?? 0 ^ (y >>> 1) ^ (mag01[y & 0x1] ?? 0);
+      }
+      for (; kk < this.stateVectorLength - 1; kk++) {
+        y =
+          (this.stateVector[kk] ?? 0 & this.upperMask) |
+          (this.stateVector[kk + 1] ?? 0 & this.lowerMask);
+        this.stateVector[kk] =
+          this.stateVector[kk + (this.stateVectorM - this.stateVectorLength)] ??
+          0 ^ (y >>> 1) ^ (mag01[y & 0x1] ?? 0);
+      }
+      y =
+        ((this.stateVector[this.stateVectorLength - 1] ?? 0) & this.upperMask) |
+        (this.stateVector[0] ?? 0 & this.lowerMask);
+      this.stateVector[this.stateVectorLength - 1] =
+        this.stateVector[this.stateVectorM - 1] ?? 0 ^ (y >>> 1) ^ (mag01[y & 0x1] ?? 0);
 
-/* generates a random number on [0,1]-real-interval */
-MersenneTwister.prototype.genrand_real1 = function () {
-  return this.genrand_int32() * (1.0 / 4294967295.0);
-  /* divided by 2^32-1 */
-};
+      this.stateIndex = 0;
+    }
 
-/* generates a random number on [0,1)-real-interval */
-MersenneTwister.prototype.random = function () {
-  return this.genrand_int32() * (1.0 / 4294967296.0);
-  /* divided by 2^32 */
-};
+    y = this.stateVector[this.stateIndex++] ?? 0;
 
-/* generates a random number on (0,1)-real-interval */
-MersenneTwister.prototype.genrand_real3 = function () {
-  return (this.genrand_int32() + 0.5) * (1.0 / 4294967296.0);
-  /* divided by 2^32 */
-};
+    // Tempering
+    y ^= y >>> 11;
+    y ^= (y << 7) & 0x9d2c5680;
+    y ^= (y << 15) & 0xefc60000;
+    y ^= y >>> 18;
 
-/* generates a random number on [0,1) with 53-bit resolution*/
-MersenneTwister.prototype.genrand_res53 = function () {
-  var a = this.genrand_int32() >>> 5,
-    b = this.genrand_int32() >>> 6;
-  return (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
-};
+    return y >>> 0;
+  }
+
+  genRandInt31(): number {
+    return this.genRandInt32() >>> 1;
+  }
+
+  genRandReal1(): number {
+    return this.genRandInt32() * (1.0 / 4294967295.0); // divided by 2^32-1
+  }
+
+  genRandReal2(): number {
+    return this.genRandInt32() * (1.0 / 4294967296.0); // divided by 2^32
+  }
+
+  genRandReal3(): number {
+    return (this.genRandInt32() + 0.5) * (1.0 / 4294967296.0); // divided by 2^32
+  }
+
+  genRandRes53(): number {
+    const a = this.genRandInt32() >>> 5;
+    const b = this.genRandInt32() >>> 6;
+    return (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
+  }
+}
 
 export default MersenneTwister;
