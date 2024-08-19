@@ -1,30 +1,25 @@
 import AleaGen from './alea-gen';
 import MersenneTwister from './mersenne-twister';
 
-interface range {
-  min: number;
-  max: number;
-}
+const _getRandomNumberWithMinMaxValues = (randomValue: number, min: number, max: number): number =>
+  Math.floor(randomValue * (max - min + 1)) + min;
 
-interface GenerateRandom extends range {
-  value: string;
-}
+const randomNumber = (value: string | number | null, min: number, max: number): number => {
+  // Type guards for undefined and any type
+  if (typeof min !== 'number' || typeof max !== 'number') {
+    throw new TypeError('min and max must be numbers');
+  }
 
-const _getRandomNumberWithMinMaxValues = (
-  randomNumber: number,
-  minValue: number,
-  maxValue: number
-): number => Math.floor(randomNumber * (maxValue - minValue + 1) + minValue);
+  if (min > max) {
+    throw new RangeError('min must be less than or equal to max');
+  }
 
-const randomNumber = (opts: GenerateRandom): number => {
-  const { value, min, max } = opts;
-
-  const prepareSeed = new AleaGen(value);
+  const seedValue = value ?? `${Date.now()}-${Math.random()}`;
+  const prepareSeed = new AleaGen(seedValue);
   const seedOutput = prepareSeed.getSeed() * 10000000;
 
   const mersenne = new MersenneTwister(seedOutput);
-
-  return _getRandomNumberWithMinMaxValues(mersenne.random(), min, max);
+  return _getRandomNumberWithMinMaxValues(mersenne.genRandReal2(), min, max);
 };
 
 export default randomNumber;
