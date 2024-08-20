@@ -96,6 +96,9 @@ class MersenneTwister implements MersenneInitialTypes {
     if (!this.stateVector) {
       throw new Error('stateVector is not initialized');
     }
+    if (keyLength < 0) {
+      throw new Error('keyLength must be non-negative');
+    }
     let i = 1;
     let j = 0;
     let k = this.stateVectorLength > keyLength ? this.stateVectorLength : keyLength;
