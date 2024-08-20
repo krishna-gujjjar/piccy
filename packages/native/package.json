@@ -1,7 +1,7 @@
 {
   "name": "@piccy/native",
   "version": "0.0.1",
-  "description": "Save time and effort with our ready-to-use SVG shapes. Create beautiful, professional designs without the hassle",
+  "description": "Save time and effort with our ready-to-use SVG shapes for react native. Create beautiful, professional designs without the hassle",
   "publishConfig": {
     "access": "public"
   },
@@ -57,8 +57,8 @@
     "@biomejs/biome": "1.8.3",
     "@piccy/biome-config": "workspace:*",
     "@piccy/tsconfig": "workspace:*",
-    "@types/react": "~18.2.45",
-    "@types/react-dom": "~18.2.25",
+    "@types/react": "~18.3.3",
+    "@types/react-dom": "~18.3.0",
     "tsup": "^8.2.4",
     "typescript": "~5.3.3"
   }
