@@ -42,12 +42,14 @@ const Container = (props: ContainerProps): JSX.Element => {
   return (
     <View
       style={{
+        ...shadow,
         width: size,
         borderWidth,
         height: size,
-        ...shadow,
         borderRadius,
+        display: 'flex',
         overflow: 'hidden',
+        borderStyle: 'solid',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: props.bg,
