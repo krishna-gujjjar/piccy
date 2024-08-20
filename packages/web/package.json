@@ -1,0 +1,58 @@
+{
+  "name": "@piccy/web",
+  "version": "0.0.0",
+  "description": "Save time and effort with our ready-to-use SVG shapes for web. Create beautiful, professional designs without the hassle",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Krishna Gujjjar <krishnagujjjar@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "directory": "packages/web",
+    "url": "https://github.com/krishna-gujjjar/piccy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krishna-gujjjar/piccy/issues"
+  },
+  "keywords": [
+    "icons",
+    "design",
+    "ui",
+    "ux",
+    "customizable",
+    "pre-built",
+    "avatar",
+    "react",
+    "next",
+    "svg",
+    "shapes",
+    "profile",
+    "image",
+    "placeholder",
+    "dynamic",
+    "colorful",
+    "library",
+    "component"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch"
+  },
+  "peerDependencies": {
+    "react": "*"
+  },
+  "devDependencies": {
+    "@piccy/tsconfig": "workspace:*",
+    "@types/react": "~18.3.3",
+    "@types/react-dom": "~18.3.0",
+    "tsup": "^8.2.4",
+    "typescript": "~5.3.3"
+  }
+}

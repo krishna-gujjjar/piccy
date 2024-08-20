@@ -15,9 +15,13 @@
     "components",
     "config",
     "deps",
+    "packages/core",
+    "packages/native",
+    "packages/web",
     "example",
     "scripts",
     "shapes",
+    "tests",
     "tools",
     "utils"
   ]
