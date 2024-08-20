@@ -17,7 +17,7 @@ function getComponentName(fileName: string) {
 }
 
 export function getAssetsPath(path: string) {
-  return join(path, '../', 'assets');
+  return join(path, '..', 'assets');
 }
 
 function getDestinationPath(shapesDir: string, fileName: string) {
@@ -92,7 +92,7 @@ export async function generateTSXCode(file: string, currentPath: string, isNativ
   const assetsDir = getAssetsPath(currentPath);
   const shapesDir = join(
     currentPath,
-    '../',
+    '..',
     'packages',
     isNative ? 'native' : 'web',
     'src',
