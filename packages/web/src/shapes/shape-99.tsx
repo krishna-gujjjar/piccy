@@ -1,0 +1,6 @@
+import type { SVGProps } from "react";
+import { type Ref, forwardRef, memo } from "react";
+const Shape99 = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>): JSX.Element => <svg width={200} height={200} fill="none" viewBox="0 0 200 200" ref={ref} {...props}><g clipPath="url(#a)"><path fill="currentColor" fillRule="evenodd" d="M100 33.645c-7.226 0-13.084 5.858-13.084 13.084H53.27C53.271 20.921 74.192 0 100 0s46.729 20.921 46.729 46.729S125.808 93.458 100 93.458V59.813c7.226 0 13.084-5.858 13.084-13.084S107.226 33.645 100 33.645M166.355 100c0-7.226-5.858-13.084-13.084-13.084V53.27C179.079 53.271 200 74.192 200 100s-20.921 46.729-46.729 46.729-46.729-20.921-46.729-46.729h33.645c0 7.226 5.858 13.084 13.084 13.084s13.084-5.858 13.084-13.084M46.729 113.084c-7.226 0-13.084-5.858-13.084-13.084s5.858-13.084 13.084-13.084S59.813 92.774 59.813 100h33.645c0-25.808-20.921-46.729-46.729-46.729S0 74.192 0 100s20.921 46.729 46.729 46.729zM100 166.355c7.226 0 13.084-5.858 13.084-13.084h33.645C146.729 179.079 125.808 200 100 200s-46.729-20.921-46.729-46.729S74.192 106.542 100 106.542v33.645c-7.226 0-13.084 5.858-13.084 13.084s5.858 13.084 13.084 13.084" clipRule="evenodd" /></g><defs><clipPath id="a"><path d="M0 0h200v200H0z" /></clipPath></defs></svg>;
+const ForwardRef = forwardRef(Shape99);
+const Memo = memo(ForwardRef);
+export default Memo;
