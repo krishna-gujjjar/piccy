@@ -96,6 +96,9 @@ class MersenneTwister implements MersenneInitialTypes {
     if (!this.stateVector) {
       throw new Error('stateVector is not initialized');
     }
+    if (keyLength < 0) {
+      throw new Error('keyLength must be non-negative');
+    }
     let i = 1;
     let j = 0;
     let k = this.stateVectorLength > keyLength ? this.stateVectorLength : keyLength;
@@ -189,15 +192,15 @@ class MersenneTwister implements MersenneInitialTypes {
   }
 
   genRandReal1(): number {
-    return this.genRandInt32() * (1.0 / 4294967295.0); // divided by 2^32-1
+    return (this.genRandInt32() >>> 0) / 4294967295; // divided by 2^32-1
   }
 
   genRandReal2(): number {
-    return this.genRandInt32() * (1.0 / 4294967296.0); // divided by 2^32
+    return (this.genRandInt32() >>> 0) / 4294967296; // divided by 2^32
   }
 
   genRandReal3(): number {
-    return (this.genRandInt32() + 0.5) * (1.0 / 4294967296.0); // divided by 2^32
+    return ((this.genRandInt32() >>> 0) + 0.5) / 4294967296; // divided by 2^32
   }
 
   genRandRes53(): number {

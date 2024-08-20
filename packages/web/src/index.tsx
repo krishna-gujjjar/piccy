@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 import ConditionalWrapper from './components/ConditionalWrapper';
 import Container from './components/Container';
@@ -23,7 +23,7 @@ interface AvatarProps {
   rounded?: 'sm' | 'md' | 'lg' | 'full';
 }
 
-export const Avatar = (props: AvatarProps): JSX.Element => {
+export const Avatar = memo((props: AvatarProps): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState(false);
   const colorKey = useMemo(() => randomNumber(props.value, 0, COLORS_COUNT), [props.value]);
   const shapeKey = useMemo(() => randomNumber(props.value, 1, SHAPES_COUNT), [props.value]);
@@ -37,8 +37,7 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
       color={SHAPE_COLORS[colorKey] ?? '#000'}
       bg={BACKGROUND_COLORS[colorKey] ?? '#fff'}
       borderColor={
-        props.borderColor ??
-        (props.withColoredBorder ?? false ? SHAPE_COLORS[colorKey] ?? '#000' : '#fff')
+        props.borderColor ?? (props.withColoredBorder ? SHAPE_COLORS[colorKey] ?? '#000' : '#fff')
       }
     >
       <ConditionalWrapper shouldRender={typeof props.source !== 'undefined'}>
@@ -67,4 +66,4 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
       </ConditionalWrapper>
     </Container>
   );
-};
+});
