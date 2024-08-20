@@ -4,7 +4,9 @@
   "scripts": {
     "build": "turbo build",
     "check-types": "turbo check-types",
-    "convert": "bun run scripts/svg-to-tsx.ts",
+    "convert": "bun run convert:web && bun run convert:native",
+    "convert:web": "bun run scripts/svg-to-web-tsx.ts",
+    "convert:native": "bun run scripts/svg-to-native-tsx.ts",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "release": "turbo release"
