@@ -37,8 +37,7 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
       color={SHAPE_COLORS[colorKey] ?? '#000'}
       bg={BACKGROUND_COLORS[colorKey] ?? '#fff'}
       borderColor={
-        props.borderColor ??
-        (props.withColoredBorder ?? false ? SHAPE_COLORS[colorKey] ?? '#000' : '#fff')
+        props.borderColor ?? (props.withColoredBorder ? SHAPE_COLORS[colorKey] ?? '#000' : '#fff')
       }
     >
       <ConditionalWrapper shouldRender={typeof props.source !== 'undefined'}>
